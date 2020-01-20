@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
 
 const app = express();
-app.use(bodyParser.json());
 
 const database = {
   users: [
@@ -25,6 +26,9 @@ const database = {
   ]
 };
 
+app.use(bodyParser.json());
+app.use(cors());
+
 
 app.get('/', (req, res) => {
   res.send(database.users);
@@ -34,7 +38,7 @@ app.post('/signin', (req, res) => {
 
   if (req.body.email === database.users[0].email &&
       req.body.password === database.users[0].password) {
-    res.json('success')
+    res.json(database.users[0])
   } else {
     res.status(400).json('error logging in');
   }
@@ -42,6 +46,10 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
   const {email, name, password} = req.body;
+
+  // bcrypt.hash(password, null, null, function(err, hash) {
+  //   console.log(hash);
+  // });
 
   database.users.push({
     id: '125',
@@ -85,6 +93,17 @@ app.put('/image', (req, res)=>{
     res.status(400).json('not found');
   }
 });
+
+
+/*
+// Load hash from your password DB.
+bcrypt.compare("bacon", hash, function(err, res) {
+  // res == true
+});
+bcrypt.compare("veggies", hash, function(err, res) {
+  // res = false
+});*/
+
 
 app.listen(3030, () => {
   console.log('app is running on port 3030');
