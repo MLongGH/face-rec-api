@@ -2,6 +2,22 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
+const knex = require('knex');
+
+const db=knex({
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    user: 'meiling',
+    password: '',
+    database: 'face-rec'
+  }
+});
+
+db.select('*').from('users')
+    .then(data =>{
+      console.log(data);
+    });
 
 const app = express();
 
@@ -51,8 +67,14 @@ app.post('/register', (req, res) => {
   //   console.log(hash);
   // });
 
+  db('users').insert({
+    name: name,
+    email: email,
+    joined: new Date()
+  }).then(console.log);
+
   database.users.push({
-    id: '125',
+    id:'127',
     name: name,
     email: email,
     password: password,
@@ -64,32 +86,32 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/profile/:id', (req, res) => {
-  const { id } = req.params;
+  const {id} = req.params;
   let found = false;
   database.users.forEach(user => {
-    if(user.id === id){
-      found=true;
+    if (user.id === id) {
+      found = true;
       return res.json(user);
     }
   });
 
-  if(!found){
+  if (!found) {
     res.status(400).json('not found');
   }
 });
 
-app.put('/image', (req, res)=>{
-  const { id } = req.body;
+app.put('/image', (req, res) => {
+  const {id} = req.body;
   let found = false;
   database.users.forEach(user => {
-    if(user.id === id){
-      found=true;
+    if (user.id === id) {
+      found = true;
       user.entries++;
       return res.json(user.entries);
     }
   });
 
-  if(!found){
+  if (!found) {
     res.status(400).json('not found');
   }
 });
