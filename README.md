@@ -9,15 +9,17 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3030](http://localhost:3030) to view it in the browser.
 
-For it running locally, need to change the database connection to the following:<br />
+For it running locally, need to change the database connection in the server.js file to the following:<br />
 ```
-   connection: {
+const db = knex({
+    client: 'pg',
+    connection: {
     host: '127.0.0.1',
-    user: 'meiling',
-    password: '',
-    database: 'face-rec'
-   }
- });
+    user: user_name,
+    password: your_password,
+    database: your_database
+    }
+});
 ```
 
 Also it is good to change node to nodemon in package.json file.<br />
