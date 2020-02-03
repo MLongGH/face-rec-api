@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
+require('dotenv').config();
 
 const signin = require('./controllers/signin');
 const register = require('./controllers/register');
@@ -47,6 +48,6 @@ app.post('/imageurl', (req, res) => {
   image.handleApiCall(req, res)
 });
 
-app.listen(process.env.PORT || 3030, () => {
+app.listen(process.env.PORT, () => {
   console.log(`app is running on port ${process.env.PORT}`);
 });
