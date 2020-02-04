@@ -23,7 +23,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-
 app.get('/', (req, res) => {
   res.send('It is working');
 });
@@ -48,6 +47,7 @@ app.post('/imageurl', (req, res) => {
   image.handleApiCall(req, res)
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`app is running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || process.env.PORT_LOCAL;
+app.listen(PORT, () => {
+  console.log(`app is running on port ${PORT}`);
 });
