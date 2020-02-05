@@ -13,8 +13,6 @@ services:
       POSTGRES_USER: sally
       POSTGRES_PASSWORD: secret
       POSTGRES_HOST: postgres
-    links:
-      - postgres
     ports:
       - '3001:3001'
     volumes:
