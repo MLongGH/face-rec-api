@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  face-rec-api:
+    container_name: backend
+    #image: node:12.14.1
+    build: ./
+    command: npm start
+    working_dir: /usr/src/face-rec-api
+    ports:
+      - '3030:3030'
+    volumes:
+      - ./:/usr/src/face-rec-api
