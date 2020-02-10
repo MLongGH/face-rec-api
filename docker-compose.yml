@@ -13,6 +13,9 @@ services:
       POSTGRES_USER: sally
       POSTGRES_PASSWORD: secret
       POSTGRES_HOST: postgres
+      REDIS_URI: redis://redis:6379
+    links:
+      - redis
     ports:
       - '3001:3001'
     volumes:
@@ -28,3 +31,10 @@ services:
       POSTGRES_USER: sally
       POSTGRES_PASSWORD: secret
       POSTGRES_HOST: postgres
+
+  # Redis
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
+

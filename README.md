@@ -28,3 +28,9 @@ Also it is good to change node to nodemon in package.json file.<br />
     "start": "nodemon server.js"
   },
 ```
+
+### USE DOCKER
+"docker-compose down -v" to turn down the docker and all the connections
+"docker-compose up --build" to run and build docker
+"docker-compose up" to run docker
+"docker-compose exec redis redis-cli" to run redis cli in docker

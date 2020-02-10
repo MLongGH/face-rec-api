@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-  signin.handleSignin(req, res, db, bcrypt)
+  signin.signinAuthentication(req,res,db, bcrypt)
 });
 
 app.post('/register', (req, res) => {
