@@ -25,7 +25,7 @@ services:
   postgres:
     build: ./postgres
     ports:
-      - '1234:5432'
+      - '5432:5432'
     environment:
       POSTGRES_DB: face-rec-docker
       POSTGRES_USER: sally
