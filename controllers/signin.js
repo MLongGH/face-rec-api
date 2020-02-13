@@ -45,7 +45,6 @@ const setToken = (key,value) => {
 }
 
 const createSessions = (user) => {
-  console.log(user);
   //JWT token, return user data
   const {email, id} = user;
   const token = signToken(email);
