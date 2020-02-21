@@ -14,9 +14,15 @@ const auth = require('./controllers/authorization');
 
 const db = knex({
   client: 'pg',
-  connection: {
+/*  connection: {
     connectionString: process.env.DATABASE_URL,
     ssl:true
+  }*/
+  connection: {
+    host: '127.0.0.1',
+    user: 'meiling',
+    password: '',
+    database: 'face-rec'
   }
 });
 
