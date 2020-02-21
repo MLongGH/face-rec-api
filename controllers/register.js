@@ -1,3 +1,24 @@
+const jwt = require('jsonwebtoken');
+const redisClient = require('./signin').redisClient;
+
+const signToken = (email) => {
+  const jwtPayload = {email};
+  return jwt.sign(jwtPayload, 'JWT_SECRET');
+}
+
+const setToken = (key,value) => {
+  return Promise.resolve(redisClient.set(key,value));
+}
+
+const createSessions = (user) => {
+  //JWT token, return user data
+  const {email, id} = user;
+  const token = signToken(email);
+  return setToken(token,id)
+      .then(()=> ({success: 'true', userId: id, token, ...user}))
+      .catch(console.log)
+}
+
 const handleRegister = (req, res, db, bcrypt) => {
   const {email, name, password} = req.body;
 
@@ -21,8 +42,9 @@ const handleRegister = (req, res, db, bcrypt) => {
                 joined: new Date()
               })
               .then(user => {
-                res.json(user[0]);
+                return createSessions(user[0]);
               })
+              .then(session => res.json(session))
         }).then(trx.commit)
         .catch(trx.rollback)
   })
